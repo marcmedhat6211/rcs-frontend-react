@@ -1,5 +1,5 @@
 import styles from "./Header.module.scss";
-
+import { headerLinks } from "../../../constants/header-links";
 const Header = () => {
   return (
     <nav className={styles.navbar}>
@@ -9,6 +9,11 @@ const Header = () => {
           src="https://reliancecompliance.ca/images/890fb8.png?v=1.0.1"
         ></img>
       </a>
+      <ul className={styles["links-container"]}>
+        {headerLinks.map((link) => {
+          return <li className={styles["links"]}>{link.text}</li>;
+        })}
+      </ul>
     </nav>
   );
 };
