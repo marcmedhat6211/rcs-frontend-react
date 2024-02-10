@@ -20,21 +20,18 @@
   .links-container {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-
+    padding-left: 0;
     .link {
-      text-decoration: none;
       &:not(:last-child) {
         margin-right: 40px;
       }
-      a {
-        text-decoration: none;
-        color: #ffffff;
-        font-family: sans-serif;
-        &:hover {
-          color: #663399;
-        }
+      text-decoration: none;
+      color: #ffffff;
+      font-family: sans-serif;
+      &:hover {
+        color: #663399;
       }
+      transition: all 0.2s ease-in-out;
     }
   }
 }
