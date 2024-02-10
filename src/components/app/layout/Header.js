@@ -1,5 +1,6 @@
 import styles from "./Header.module.scss";
 import { headerLinks } from "../../../constants/header-links";
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <nav className={styles.navbar}>
@@ -11,7 +12,11 @@ const Header = () => {
       </a>
       <ul className={styles["links-container"]}>
         {headerLinks.map((link) => {
-          return <li className={styles["links"]}>{link.text}</li>;
+          return (
+            <Link className={styles["link"]}>
+              <a href={link.route}>{link.text}</a>
+            </Link>
+          );
         })}
       </ul>
     </nav>
