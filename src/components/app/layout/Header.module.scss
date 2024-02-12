@@ -4,16 +4,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
+  padding: 0 60px;
 
   .logo-container {
     width: 90px;
     height: 30px;
+    margin-left: 50px;
 
     .navbar-logo {
       width: 100%;
       height: 100%;
       object-fit: contain;
+    }
+  }
+  .links-container {
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+    .link {
+      &:not(:last-child) {
+        margin-right: 40px;
+      }
+      text-decoration: none;
+      color: #ffffff;
+      font-family: sans-serif;
+      &:hover {
+        color: #663399;
+      }
+      transition: all 0.2s ease-in-out;
     }
   }
 }
