@@ -8,7 +8,23 @@
   position: absolute;
   bottom: 0;
 
-  .footer-phrase {
+  .desktop-footer-phrase {
     color: #ffffff;
+    text-align: center;
+    font-size: medium;
+  }
+  .mobile-footer-phrase {
+    color: #ffffff;
+    text-align: center;
+    font-size: small;
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .desktop-footer-phrase {
+      display: none;
+    }
+    .mobile-footer-phrase {
+      display: block;
+    }
   }
 }

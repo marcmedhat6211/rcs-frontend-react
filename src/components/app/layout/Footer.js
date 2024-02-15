@@ -1,11 +1,12 @@
 import styles from "./Footer.module.scss";
+import FooterDesktopView from "./FooterDesktopView";
+import FooterMobileView from "./FooterMobileView";
 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <p className={styles["footer-phrase"]}>
-        Copyright © 2020 Reliance Compliance Solutions - All Rights Reserved.{" "}
-      </p>
+      <FooterMobileView />
+      <FooterDesktopView />
     </footer>
   );
 };

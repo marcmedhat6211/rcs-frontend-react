@@ -5,6 +5,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 60px;
+  // position: relative;
 
   .logo-container {
     width: 90px;
@@ -17,10 +18,12 @@
       object-fit: contain;
     }
   }
+
   .links-container {
     display: flex;
     align-items: center;
     padding-left: 0;
+
     .link {
       &:not(:last-child) {
         margin-right: 40px;
@@ -32,6 +35,86 @@
         color: #663399;
       }
       transition: all 0.2s ease-in-out;
+    }
+  }
+
+  .MobileView-list-button {
+    background-color: transparent;
+    border: none;
+    padding: 0%;
+    cursor: pointer;
+    .MobileView-list-icon {
+      color: #890fb8;
+      height: 40px;
+      width: 50px;
+    }
+    display: none;
+  }
+
+  .overlay {
+    background-color: black;
+    z-index: 10;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .overlay-links-wrapper {
+      height: 80%;
+      .overlay-exitButton {
+        background-color: transparent;
+        position: absolute;
+        border: 0;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 40px;
+        cursor: pointer;
+
+        .overlay-exitImage {
+          color: #663399;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+      .overlay-links-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 0;
+        margin: 0;
+
+        .overlay-link {
+          text-decoration: none;
+          color: #ffffff;
+          font-family: sans-serif;
+          &:hover {
+            color: #663399;
+          }
+          transition: all 0.2s ease-in-out;
+        }
+      }
+    }
+
+    &.overlay-open {
+      top: 0;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .links-container {
+      display: none;
+    }
+    .MobileView-list-button {
+      display: block;
     }
   }
 }
