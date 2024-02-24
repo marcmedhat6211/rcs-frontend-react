@@ -4,26 +4,26 @@ import { Link } from "react-router-dom";
 
 const SideMenu = () => {
   return (
-    <div className={styles["side-menu-container"]}>
+    <aside className={styles["side-menu-container"]}>
       <div className={styles["side-menu-logo-container"]}>
         <img src={logo} className={styles["side-menu-logo"]}></img>
       </div>
-      <div className={styles["side-menu-links-container"]}>
-        <div className={styles["side-menu-link-container"]}>
+      <ul className={styles["side-menu-links-container"]}>
+        <li className={styles["side-menu-link-container"]}>
           <Link
             style={{
               color: "#ffffff",
               fontWeight: "700",
               fontSize: "larger",
               textDecoration: "none",
-              "&:hover": { color: "black" },
+              // ":hover": { color: "black" },
             }}
             to={"/admin/services"}
           >
             Services
           </Link>
-        </div>
-        <div className={styles["side-menu-link-container"]}>
+        </li>
+        <li className={styles["side-menu-link-container"]}>
           <Link
             style={{
               color: "#ffffff",
@@ -36,8 +36,8 @@ const SideMenu = () => {
           >
             Create Service
           </Link>
-        </div>
-        <div className={styles["side-menu-link-container"]}>
+        </li>
+        <li className={styles["side-menu-link-container"]}>
           <Link
             style={{
               color: "#ffffff",
@@ -50,9 +50,9 @@ const SideMenu = () => {
           >
             Edit Service
           </Link>
-        </div>
-      </div>
-    </div>
+        </li>
+      </ul>
+    </aside>
   );
 };
 export default SideMenu;
