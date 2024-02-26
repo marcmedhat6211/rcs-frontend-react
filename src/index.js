@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { register } from "swiper/element/bundle";
+import "bootstrap/dist/css/bootstrap.css";
 
 register();
 
