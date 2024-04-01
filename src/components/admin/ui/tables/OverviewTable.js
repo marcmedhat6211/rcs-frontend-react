@@ -1,5 +1,7 @@
-import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
+import { Button } from "react-bootstrap";
+import GlobalSearchInput from "../inputs/GlobalSearchInput";
+import styles from "./OverviewTable.module.scss";
 
 // let summedItemFeatures = tableData[0].itemData.length
 
@@ -67,7 +69,7 @@ import Table from "react-bootstrap/Table";
 //   },
 // ];
 
-const OverviewTable = ({ columns, tableData }) => {
+const OverviewTable = ({ columns, tableData, onAddResourceClick }) => {
   const renderTableData = () => {
     return tableData.map((rowObj) => {
       return (
@@ -82,8 +84,17 @@ const OverviewTable = ({ columns, tableData }) => {
 
   return (
     <div>
-      <div className="d-flex justify-content-end mb-2">
-        <Button variant="success">Create Service</Button>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <GlobalSearchInput
+          className={`${styles["global-search-input"]} me-4`}
+        />
+        <Button
+          variant="success"
+          onClick={onAddResourceClick}
+          className={styles["add-resource-btn"]}
+        >
+          Create Service
+        </Button>
       </div>
       <Table striped bordered hover>
         <thead>

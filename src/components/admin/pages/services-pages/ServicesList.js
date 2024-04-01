@@ -1,8 +1,7 @@
-// import { Button } from "react-bootstrap";
-// import Table from "react-bootstrap/Table";
-import { useMemo } from "react";
-import OverviewTable from "../ui/tables/OverviewTable";
+import { useMemo, useState } from "react";
+import OverviewTable from "../../ui/tables/OverviewTable";
 import { Button } from "react-bootstrap";
+import ServiceFormModal from "./ServiceFormModal";
 
 const DUMMY_DATA = [
   {
@@ -22,12 +21,44 @@ const DUMMY_DATA = [
   },
 ];
 
-const Services = () => {
+const ServicesList = () => {
+  // states
+  const [showModal, setShowModal] = useState(false);
+  const [services, setServices] = useState(DUMMY_DATA);
+  const [serviceToBeEdited, setServiceToBeEdited] = useState();
+
   const columns = useMemo(() => {
     return ["#", "Name", "Description", "Actions"];
   }, []);
 
-  const mappedTableData = DUMMY_DATA.map((service) => {
+  const createbuttonHandler = () => {
+    setServiceToBeEdited(undefined);
+    setShowModal(true);
+  };
+
+  const editButtonHandler = (service) => {
+    setShowModal(true);
+    setServiceToBeEdited(service);
+  };
+  const deleteButtonHandler = (service) => {
+    setServices((prevState) => {
+      return prevState.filter((item) => {
+        return item.id !== service.id;
+      });
+    });
+  };
+
+  const addServiceHandler = (formData) => {
+    setServices((prevState) => {
+      return [
+        ...prevState,
+        { ...formData, id: prevState[prevState.length - 1].id + 1 },
+      ];
+    });
+    setShowModal(false);
+  };
+
+  const mappedTableData = services.map((service) => {
     return {
       key: Math.random(),
       // array of cells
@@ -52,11 +83,20 @@ const Services = () => {
           key: Math.random(),
           itemFeature: (
             <div>
-              <Button variant="outline-primary" size="sm" className="me-2">
+              <Button
+                variant="outline-primary"
+                size="sm"
+                className="me-2"
+                onClick={editButtonHandler.bind(this, service)}
+              >
                 {" "}
                 Edit{" "}
               </Button>
-              <Button variant="outline-danger" size="sm">
+              <Button
+                variant="outline-danger"
+                size="sm"
+                onClick={deleteButtonHandler.bind(this, service)}
+              >
                 Delete{" "}
               </Button>
             </div>
@@ -103,7 +143,21 @@ const Services = () => {
     //     </tbody>
     //   </Table>
     // </div>
-    <OverviewTable columns={columns} tableData={mappedTableData} />
+    <>
+      <OverviewTable
+        columns={columns}
+        tableData={mappedTableData}
+        onAddResourceClick={createbuttonHandler}
+      />
+      <ServiceFormModal
+        showModal={showModal}
+        serviceToBeEdited={serviceToBeEdited}
+        onSubmit={addServiceHandler}
+        hideModal={() => {
+          setShowModal(false);
+        }}
+      />
+    </>
   );
 };
-export default Services;
+export default ServicesList;
