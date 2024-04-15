@@ -2,6 +2,7 @@ import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
 import GlobalSearchInput from "../inputs/GlobalSearchInput";
 import styles from "./OverviewTable.module.scss";
+import { useState } from "react";
 
 // let summedItemFeatures = tableData[0].itemData.length
 
@@ -70,6 +71,8 @@ import styles from "./OverviewTable.module.scss";
 // ];
 
 const OverviewTable = ({ columns, tableData, onAddResourceClick }) => {
+  const [globalSearchText, setGlogablSearchText] = useState("");
+
   const renderTableData = () => {
     return tableData.map((rowObj) => {
       return (
@@ -82,11 +85,15 @@ const OverviewTable = ({ columns, tableData, onAddResourceClick }) => {
     });
   };
 
+  const globalSearchChangeHandler = (event) =>
+    setGlogablSearchText(event.target.value);
+
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <GlobalSearchInput
           className={`${styles["global-search-input"]} me-4`}
+          onChange={globalSearchChangeHandler}
         />
         <Button
           variant="success"

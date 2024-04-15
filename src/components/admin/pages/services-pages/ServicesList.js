@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import OverviewTable from "../../ui/tables/OverviewTable";
 import { Button } from "react-bootstrap";
 import ServiceFormModal from "./ServiceFormModal";
+import { initialTableFilters } from "../../../../constants/filters";
 
 const DUMMY_DATA = [
   {
@@ -26,6 +27,7 @@ const ServicesList = () => {
   const [showModal, setShowModal] = useState(false);
   const [services, setServices] = useState(DUMMY_DATA);
   const [serviceToBeEdited, setServiceToBeEdited] = useState();
+  const [tableFilters, setTableFilters] = useState(initialTableFilters);
 
   const columns = useMemo(() => {
     return ["#", "Name", "Description", "Actions"];
@@ -148,6 +150,7 @@ const ServicesList = () => {
         columns={columns}
         tableData={mappedTableData}
         onAddResourceClick={createbuttonHandler}
+        setTableFilters={setTableFilters}
       />
       <ServiceFormModal
         showModal={showModal}
