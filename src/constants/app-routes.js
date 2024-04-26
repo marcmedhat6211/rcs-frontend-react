@@ -6,6 +6,7 @@ import Services from "../components/app/pages/Services";
 import Pricing from "../components/app/pages/Pricing";
 import ClientPortal from "../components/app/pages/ClientPortal";
 import ContactUs from "../components/app/pages/ContactUs";
+import Login from "../components/app/pages/Login";
 
 export const appRoutes = [
   {
@@ -13,6 +14,7 @@ export const appRoutes = [
     element: <RootLayout />,
     children: [
       { path: "/", element: <HomePage /> },
+      { path: "/login", element: <Login /> },
       { path: "/about", element: <AboutUs /> },
       { path: "/sectors", element: <Sectors /> },
       { path: "/services", element: <Services /> },

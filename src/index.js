@@ -5,13 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { register } from "swiper/element/bundle";
 import "bootstrap/dist/css/bootstrap.css";
+import { Provider } from "react-redux";
+import store from "./components/redux/store";
 
 register();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
