@@ -1,33 +1,42 @@
-import { useMemo, useState } from "react";
-import OverviewTable from "../../ui/tables/OverviewTable";
+import { useEffect, useMemo, useState } from "react";
+import OverviewTable from "../ui/tables/OverviewTable";
 import { Button } from "react-bootstrap";
-import ServiceFormModal from "./ServiceFormModal";
-import { initialTableFilters } from "../../../../constants/filters";
+import ServiceFormModal from "../custom-components/service/ServiceFormModal";
+import { initialTableFilters } from "../../../constants/filters";
+import { sendRequest } from "../../../services/api-service";
 
-const DUMMY_DATA = [
-  {
-    id: 1,
-    name: "service 1",
-    description: "nice service",
-  },
-  {
-    id: 2,
-    name: "service 2",
-    description: "very nice service",
-  },
-  {
-    id: 3,
-    name: "service 3",
-    description: "gamda fash5",
-  },
-];
+// const DUMMY_DATA = [
+//   {
+//     id: 1,
+//     name: "service 1",
+//     description: "nice service",
+//   },
+//   {
+//     id: 2,
+//     name: "service 2",
+//     description: "very nice service",
+//   },
+//   {
+//     id: 3,
+//     name: "service 3",
+//     description: "gamda fash5",
+//   },
+// ];
 
 const ServicesList = () => {
   // states
   const [showModal, setShowModal] = useState(false);
-  const [services, setServices] = useState(DUMMY_DATA);
+  const [services, setServices] = useState([]);
   const [serviceToBeEdited, setServiceToBeEdited] = useState();
   const [tableFilters, setTableFilters] = useState(initialTableFilters);
+
+  useEffect(() => {
+    sendRequest("service/list", "GET").then((response) => {
+      if (response.success) {
+        setServices(response.services);
+      }
+    });
+  }, []);
 
   const columns = useMemo(() => {
     return ["#", "Name", "Description", "Actions"];
@@ -39,25 +48,49 @@ const ServicesList = () => {
   };
 
   const editButtonHandler = (service) => {
-    setShowModal(true);
     setServiceToBeEdited(service);
+    setShowModal(true);
   };
+
   const deleteButtonHandler = (service) => {
-    setServices((prevState) => {
-      return prevState.filter((item) => {
-        return item.id !== service.id;
-      });
+    sendRequest(`service/${service.id}/delete`, "DELETE").then((response) => {
+      if (response.success) {
+        setServices(response.data);
+        //   (prevState) => {
+        //   return prevState.filter((item) => {
+        //     return item.id !== service.id;
+        //   });
+        // };
+      }
     });
   };
 
-  const addServiceHandler = (formData) => {
-    setServices((prevState) => {
-      return [
-        ...prevState,
-        { ...formData, id: prevState[prevState.length - 1].id + 1 },
-      ];
-    });
-    setShowModal(false);
+  const formSubmitHandler = (formData, serviceId) => {
+    if (serviceId === undefined) {
+      sendRequest("service/create", "POST", formData).then((response) => {
+        if (response.success) {
+          setServices((prevState) => {
+            return [...prevState, response.service];
+          });
+          setShowModal(false);
+          //   (prevState) => {
+          //   return [
+          //     ...prevState,
+          //     { ...response, id: prevState[prevState.length - 1].id + 1 },
+          //   ];
+          // };
+        }
+      });
+    } else {
+      sendRequest(`service/${serviceId}/update`, "PATCH", formData).then(
+        (response) => {
+          if (response.success) {
+            setServiceToBeEdited(response.data);
+          }
+        }
+      );
+      setShowModal(false);
+    }
   };
 
   const mappedTableData = services.map((service) => {
@@ -151,11 +184,12 @@ const ServicesList = () => {
         tableData={mappedTableData}
         onAddResourceClick={createbuttonHandler}
         setTableFilters={setTableFilters}
+        addResourceBtnName={"Add Service"}
       />
       <ServiceFormModal
         showModal={showModal}
         serviceToBeEdited={serviceToBeEdited}
-        onSubmit={addServiceHandler}
+        onSubmit={formSubmitHandler}
         hideModal={() => {
           setShowModal(false);
         }}

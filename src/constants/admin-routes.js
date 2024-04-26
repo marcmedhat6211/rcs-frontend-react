@@ -1,6 +1,7 @@
 import RootLayout from "../components/admin/layout/RootLayout";
 import HomePage from "../components/admin/pages/HomePage";
-import ServicesList from "../components/admin/pages/services-pages/ServicesList";
+import ServicesPage from "../components/admin/pages/ServicesPage";
+import SectorsPage from "../components/admin/pages/SectorsPage";
 
 export const adminRoutes = [
   {
@@ -8,9 +9,8 @@ export const adminRoutes = [
     element: <RootLayout />,
     children: [
       { path: "/admin", element: <HomePage /> },
-      { path: "/admin/services", element: <ServicesList /> },
-      // { path: "/admin/services/create", element: <CreateService /> },
-      // { path: "/admin/services/:serviceId/edit", element: <EditService /> },
+      { path: "/admin/services", element: <ServicesPage /> },
+      { path: "/admin/sectors", element: <SectorsPage /> },
     ],
   },
 ];

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 
-let initialFormDataState = { name: "", description: "" };
+const SectorFormModal = (props) => {
+  let initialFormDataState = { name: "", image: "" };
 
-const ServiceFormModal = (props) => {
   const [formData, setFormData] = useState(initialFormDataState);
 
   // to collect data from inputs and bind it with input change function
@@ -18,19 +18,6 @@ const ServiceFormModal = (props) => {
     event.preventDefault();
     props.onSubmit(formData);
   };
-
-  // to condition between create and edit service
-  useEffect(() => {
-    if (props.serviceToBeEdited) {
-      setFormData({
-        name: props.serviceToBeEdited.name,
-        description: props.serviceToBeEdited.description,
-      });
-    } else {
-      setFormData(initialFormDataState);
-    }
-  }, [props.serviceToBeEdited]);
-
   return (
     <Modal show={props.showModal} onHide={props.hideModal}>
       <div
@@ -39,28 +26,28 @@ const ServiceFormModal = (props) => {
       >
         <Modal.Dialog>
           <Modal.Header closeButton>
-            <Modal.Title>New Service</Modal.Title>
+            <Modal.Title>New Sector</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <Form onSubmit={formSubmitHandler}>
+            <Form>
               <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>Service Name</Form.Label>
+                <Form.Label>Sector Name</Form.Label>
                 <Form.Control
                   type="text"
-                  value={formData.name}
+                  value={""}
                   onChange={inputChangeHandler.bind(this, "name")}
-                  placeholder="Enter Service Name"
+                  placeholder="Enter Sector Name"
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicDescription">
-                <Form.Label>Service Description</Form.Label>
+              <Form.Group className="mb-3" controlId="formBasicImage">
+                <Form.Label>Sector Image</Form.Label>
                 <Form.Control
-                  type="text"
-                  placeholder="Enter Service Description"
-                  value={formData.description}
-                  onChange={inputChangeHandler.bind(this, "description")}
+                  type="file"
+                  placeholder="insert Sector Image"
+                  value={""}
+                  onChange={inputChangeHandler.bind(this, "image")}
                 />
               </Form.Group>
 
@@ -74,4 +61,4 @@ const ServiceFormModal = (props) => {
     </Modal>
   );
 };
-export default ServiceFormModal;
+export default SectorFormModal;

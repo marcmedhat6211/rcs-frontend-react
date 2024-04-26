@@ -7,7 +7,7 @@
 
 import QueryString from "qs";
 
-const Base_URL = "https://ed7b-156-194-215-47.ngrok-free.app/api/";
+const Base_URL = "https://9022-156-194-165-251.ngrok-free.app/api/";
 const sendRequest = async (
   path,
   method,
@@ -25,7 +25,7 @@ const sendRequest = async (
       headers: {
         "Content-Type": "application/json",
         ...(access === "protected"
-          ? { Authorization: "Bearer" + localStorage.getItem("token") }
+          ? { Authorization: "Bearer " + localStorage.getItem("token") }
           : {}),
       },
       ...(["POST", "PUT", "PATCH"].includes(method)

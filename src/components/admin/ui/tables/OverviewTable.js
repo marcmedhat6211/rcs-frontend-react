@@ -70,7 +70,12 @@ import { useState } from "react";
 //   },
 // ];
 
-const OverviewTable = ({ columns, tableData, onAddResourceClick }) => {
+const OverviewTable = ({
+  columns,
+  tableData,
+  onAddResourceClick,
+  addResourceBtnName,
+}) => {
   const [globalSearchText, setGlogablSearchText] = useState("");
 
   const renderTableData = () => {
@@ -100,7 +105,7 @@ const OverviewTable = ({ columns, tableData, onAddResourceClick }) => {
           onClick={onAddResourceClick}
           className={styles["add-resource-btn"]}
         >
-          Create Service
+          {addResourceBtnName}
         </Button>
       </div>
       <Table striped bordered hover>
