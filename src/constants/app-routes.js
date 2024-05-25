@@ -9,12 +9,12 @@ import ContactUs from "../components/app/pages/ContactUs";
 import Login from "../components/app/pages/Login";
 
 export const appRoutes = [
+  { path: "/login", element: <Login /> },
   {
     path: "/",
     element: <RootLayout />,
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/login", element: <Login /> },
       { path: "/about", element: <AboutUs /> },
       { path: "/sectors", element: <Sectors /> },
       { path: "/services", element: <Services /> },

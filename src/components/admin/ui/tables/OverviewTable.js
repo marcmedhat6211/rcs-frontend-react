@@ -2,7 +2,10 @@ import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
 import GlobalSearchInput from "../inputs/GlobalSearchInput";
 import styles from "./OverviewTable.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Spinner from "react-bootstrap/Spinner";
+
+// import { sendRequest } from "../../../../services/api-service";
 
 // let summedItemFeatures = tableData[0].itemData.length
 
@@ -75,8 +78,22 @@ const OverviewTable = ({
   tableData,
   onAddResourceClick,
   addResourceBtnName,
+  loadingTableData,
+  setTableFilters,
 }) => {
   const [globalSearchText, setGlogablSearchText] = useState("");
+
+  useEffect(() => {
+    // debounce function
+    const debounceFn = setTimeout(() => {
+      setTableFilters((prevState) => {
+        return { ...prevState, globalFilter: globalSearchText };
+      });
+    }, 1000);
+
+    // cleanup function
+    return () => clearTimeout(debounceFn);
+  }, [globalSearchText]);
 
   const renderTableData = () => {
     return tableData.map((rowObj) => {
@@ -92,6 +109,7 @@ const OverviewTable = ({
 
   const globalSearchChangeHandler = (event) =>
     setGlogablSearchText(event.target.value);
+  // sendRequest("")
 
   return (
     <div>
@@ -108,16 +126,24 @@ const OverviewTable = ({
           {addResourceBtnName}
         </Button>
       </div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            {columns.map((column) => (
-              <th key={Math.random()}>{column}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>{renderTableData()}</tbody>
-      </Table>
+      {loadingTableData ? (
+        <div className="d-flex justify-content-center">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              {columns.map((column) => (
+                <th key={Math.random()}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>{renderTableData()}</tbody>
+        </Table>
+      )}
     </div>
   );
 };

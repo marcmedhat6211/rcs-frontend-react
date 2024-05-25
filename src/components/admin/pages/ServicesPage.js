@@ -28,15 +28,21 @@ const ServicesList = () => {
   const [showModal, setShowModal] = useState(false);
   const [services, setServices] = useState([]);
   const [serviceToBeEdited, setServiceToBeEdited] = useState();
+  const [loadingTableData, setLoadingTableData] = useState(false);
   const [tableFilters, setTableFilters] = useState(initialTableFilters);
 
   useEffect(() => {
-    sendRequest("service/list", "GET").then((response) => {
-      if (response.success) {
-        setServices(response.services);
-      }
-    });
-  }, []);
+    setLoadingTableData(true);
+    sendRequest("service/list", "GET", {}, tableFilters)
+      .then((response) => {
+        if (response.success) {
+          setServices(response.services);
+        }
+      })
+      .finally(() => {
+        setLoadingTableData(false);
+      });
+  }, [tableFilters]);
 
   const columns = useMemo(() => {
     return ["#", "Name", "Description", "Actions"];
@@ -54,13 +60,13 @@ const ServicesList = () => {
 
   const deleteButtonHandler = (service) => {
     sendRequest(`service/${service.id}/delete`, "DELETE").then((response) => {
+      // console.log(response);
       if (response.success) {
-        setServices(response.data);
-        //   (prevState) => {
-        //   return prevState.filter((item) => {
-        //     return item.id !== service.id;
-        //   });
-        // };
+        setServices((prevState) => {
+          return prevState.filter((item) => {
+            return item.id !== service.id;
+          });
+        });
       }
     });
   };
@@ -185,6 +191,7 @@ const ServicesList = () => {
         onAddResourceClick={createbuttonHandler}
         setTableFilters={setTableFilters}
         addResourceBtnName={"Add Service"}
+        loadingTableData={loadingTableData}
       />
       <ServiceFormModal
         showModal={showModal}

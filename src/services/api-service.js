@@ -7,7 +7,7 @@
 
 import QueryString from "qs";
 
-const Base_URL = "https://9022-156-194-165-251.ngrok-free.app/api/";
+const Base_URL = "https://087b-156-194-178-141.ngrok-free.app/api/";
 const sendRequest = async (
   path,
   method,
