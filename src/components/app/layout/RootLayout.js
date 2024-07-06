@@ -4,11 +4,11 @@ import Header from "./Header";
 
 const RootLayout = () => {
   return (
-    <div>
+    <main>
       <Header />
       <Outlet />
       <Footer />
-    </div>
+    </main>
   );
 };
 export default RootLayout;

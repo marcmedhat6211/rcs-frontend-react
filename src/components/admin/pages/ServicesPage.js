@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import ServiceFormModal from "../custom-components/service/ServiceFormModal";
 import { initialTableFilters } from "../../../constants/filters";
 import { sendRequest } from "../../../services/api-service";
+import { setErrorOnResource } from "../../../helpers/error-helper";
 
 // const DUMMY_DATA = [
 //   {
@@ -71,7 +72,7 @@ const ServicesList = () => {
     });
   };
 
-  const formSubmitHandler = (formData, serviceId) => {
+  const formSubmitHandler = (formData, serviceId, setError) => {
     if (serviceId === undefined) {
       sendRequest("service/create", "POST", formData).then((response) => {
         if (response.success) {
@@ -79,12 +80,8 @@ const ServicesList = () => {
             return [...prevState, response.service];
           });
           setShowModal(false);
-          //   (prevState) => {
-          //   return [
-          //     ...prevState,
-          //     { ...response, id: prevState[prevState.length - 1].id + 1 },
-          //   ];
-          // };
+        } else {
+          setErrorOnResource(response.errors, setError);
         }
       });
     } else {

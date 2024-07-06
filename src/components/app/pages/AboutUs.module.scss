@@ -1,0 +1,41 @@
+.about-us-page {
+  padding: 75px 150px 75px 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .about-us-header {
+    margin-bottom: 3rem;
+  }
+  h1 {
+    text-align: center;
+    color: #663399;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  p {
+    color: #787976;
+    font-size: 18px;
+  }
+  li {
+    color: #787976;
+    font-size: 18px;
+    list-style: square;
+  }
+  .team {
+    display: flex;
+    flex-direction: grid;
+    grid-template-columns: auto auto auto;
+  }
+}
+@media (max-width: 990px) {
+  .about-us-page {
+    padding: 75px 50px 75px 50px;
+    .team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
