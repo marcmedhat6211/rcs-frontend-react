@@ -7,6 +7,7 @@ const login = (loginData) => {
       "login_check",
       "POST",
       { username: loginData.email, password: loginData.password },
+      "admin",
       {},
       "public"
     );

@@ -6,9 +6,11 @@ import { sideLinks } from "../../../constants/side-links";
 const SideMenu = () => {
   return (
     <aside className={styles["side-menu-container"]}>
-      <div className={styles["side-menu-logo-container"]}>
-        <img src={logo} className={styles["side-menu-logo"]} />
-      </div>
+      <Link to="/">
+        <div className={styles["side-menu-logo-container"]}>
+          <img src={logo} className={styles["side-menu-logo"]} />
+        </div>
+      </Link>
       <ul className={styles["side-menu-links-container"]}>
         {sideLinks.map((sideLink) => {
           return (

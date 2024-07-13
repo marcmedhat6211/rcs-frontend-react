@@ -7,16 +7,25 @@
 
 import QueryString from "qs";
 
-const Base_URL = "https://3e5f-156-194-221-200.ngrok-free.app/api/";
+// const Base_URL = "https://2f2a-154-180-173-104.ngrok-free.app/api/";
+
 const sendRequest = async (
   path,
   method,
   requestBody = {},
+  platform = "fe",
   queryParams = {},
   access = "protected"
 ) => {
+  let BASE_URL = "";
+  if (platform === "admin") {
+    BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  } else {
+    BASE_URL = process.env.REACT_APP_FE_API_BASE_URL;
+  }
+
   const response = await fetch(
-    Base_URL +
+    BASE_URL +
       (Object.keys(queryParams).length > 0
         ? path + "?" + QueryString.stringify(queryParams)
         : path),

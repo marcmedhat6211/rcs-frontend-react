@@ -6,4 +6,6 @@ export const headerLinks = [
   { text: "Pricing", route: "" },
   { text: "Client Portal", route: "/client-portal" },
   { text: "Contact", route: "/contact" },
+  // TODO: make this accessible only by admin
+  { text: "Manage Website", route: "/admin" },
 ];

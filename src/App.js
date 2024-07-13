@@ -8,6 +8,8 @@ import { adminRoutes } from "./constants/admin-routes";
 import { appRoutes } from "./constants/app-routes";
 import { isAuthenticated } from "./services/auth-service";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const routes = createBrowserRouter([...adminRoutes, ...appRoutes]);
 
@@ -18,7 +20,12 @@ function App() {
       navigate("/login");
     }
   }, []);
-  return <RouterProvider router={routes} />;
+  return (
+    <>
+      <RouterProvider router={routes} />
+      <ToastContainer />
+    </>
+  );
 }
 
 export default App;

@@ -5,6 +5,7 @@ import ServiceFormModal from "../custom-components/service/ServiceFormModal";
 import { initialTableFilters } from "../../../constants/filters";
 import { sendRequest } from "../../../services/api-service";
 import { setErrorOnResource } from "../../../helpers/error-helper";
+import { toastr } from "../../../helpers/toaster-helper";
 
 // const DUMMY_DATA = [
 //   {
@@ -34,7 +35,7 @@ const ServicesList = () => {
 
   useEffect(() => {
     setLoadingTableData(true);
-    sendRequest("service/list", "GET", {}, tableFilters)
+    sendRequest("service/list", "GET", {}, "admin", tableFilters)
       .then((response) => {
         if (response.success) {
           setServices(response.services);
@@ -60,38 +61,46 @@ const ServicesList = () => {
   };
 
   const deleteButtonHandler = (service) => {
-    sendRequest(`service/${service.id}/delete`, "DELETE").then((response) => {
-      // console.log(response);
-      if (response.success) {
-        setServices((prevState) => {
-          return prevState.filter((item) => {
-            return item.id !== service.id;
+    sendRequest(`service/${service.id}/delete`, "DELETE", {}, "admin").then(
+      (response) => {
+        // console.log(response);
+        if (response.success) {
+          setServices((prevState) => {
+            return prevState.filter((item) => {
+              return item.id !== service.id;
+            });
           });
-        });
+        }
       }
-    });
+    );
   };
 
   const formSubmitHandler = (formData, serviceId, setError) => {
     if (serviceId === undefined) {
-      sendRequest("service/create", "POST", formData).then((response) => {
-        if (response.success) {
-          setServices((prevState) => {
-            return [...prevState, response.service];
-          });
-          setShowModal(false);
-        } else {
-          setErrorOnResource(response.errors, setError);
-        }
-      });
-    } else {
-      sendRequest(`service/${serviceId}/update`, "PATCH", formData).then(
+      sendRequest("service/create", "POST", formData, "admin").then(
         (response) => {
           if (response.success) {
-            setServiceToBeEdited(response.data);
+            setServices((prevState) => {
+              return [...prevState, response.service];
+            });
+            setShowModal(false);
+            toastr("success", "Service added successfully!");
+          } else {
+            setErrorOnResource(response.errors, setError);
           }
         }
       );
+    } else {
+      sendRequest(
+        `service/${serviceId}/update`,
+        "PATCH",
+        formData,
+        "admin"
+      ).then((response) => {
+        if (response.success) {
+          setServiceToBeEdited(response.data);
+        }
+      });
       setShowModal(false);
     }
   };
