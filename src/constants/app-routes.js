@@ -7,6 +7,7 @@ import Pricing from "../components/app/pages/Pricing";
 import ClientPortal from "../components/app/pages/ClientPortal";
 import ContactUs from "../components/app/pages/ContactUs";
 import Login from "../components/app/pages/Login";
+import MemberDetails from "../components/app/pages/MemberDetails";
 
 export const appRoutes = [
   { path: "/login", element: <Login /> },
@@ -21,6 +22,10 @@ export const appRoutes = [
       { path: "/pricing", element: <Pricing /> },
       { path: "/client-portal", element: <ClientPortal /> },
       { path: "/contact", element: <ContactUs /> },
+      {
+        path: "/team-member/:teamMemberId/details",
+        element: <MemberDetails />,
+      },
     ],
   },
 ];

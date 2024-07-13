@@ -4,7 +4,7 @@ import Button1 from "../ui/buttons/Button1";
 import { IoLocationSharp } from "react-icons/io5";
 import { TbMailFilled } from "react-icons/tb";
 import classes from "./ContactUs.module.scss";
-import ContactUsForm from "../custom-components/ContactUsForm";
+import ContactUsForm from "../custom-components/contact-us-comp/ContactUsForm";
 // import { APIProvider, Map } from "@vis.gl/react-google-maps";
 
 const ContactUs = () => {

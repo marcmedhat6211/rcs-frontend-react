@@ -1,8 +1,8 @@
 import Form from "react-bootstrap/Form";
-import Button1 from "../ui/buttons/Button1";
+import Button1 from "../../ui/buttons/Button1";
 import { Controller, useForm } from "react-hook-form";
-import { sendRequest } from "../../../services/api-service";
-import { setErrorOnResource } from "../../../helpers/error-helper";
+import { sendRequest } from "../../../../services/api-service";
+import { setErrorOnResource } from "../../../../helpers/error-helper";
 import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 
@@ -18,8 +18,8 @@ const ContactUsForm = () => {
     defaultValues: {
       name: "",
       email: "",
-      business: "",
-      text: "",
+      businessName: "",
+      message: "",
     },
   });
 
@@ -95,7 +95,7 @@ const ContactUsForm = () => {
       <Form.Group className="mb-3" controlId="formBusinessName">
         <Controller
           control={control}
-          name="business"
+          name="businessName"
           render={({ field }) => {
             return (
               <Form.Control
@@ -104,13 +104,13 @@ const ContactUsForm = () => {
                 type="text"
                 placeholder="Enter business name"
                 {...field}
-                isInvalid={!!errors.business}
+                isInvalid={!!errors.businessName}
               />
             );
           }}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.business?.message}
+          {errors.businessName?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -118,7 +118,7 @@ const ContactUsForm = () => {
         <Form.Label></Form.Label>
         <Controller
           control={control}
-          name="text"
+          name="message"
           render={({ field }) => {
             return (
               <Form.Control
@@ -128,7 +128,7 @@ const ContactUsForm = () => {
                 rows={5}
                 placeholder="Tell us a bit about your needs so we can get you started"
                 {...field}
-                isInvalid={!!errors.text}
+                isInvalid={!!errors.message}
               />
             );
           }}
